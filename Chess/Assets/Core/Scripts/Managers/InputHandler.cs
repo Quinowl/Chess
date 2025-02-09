@@ -45,6 +45,7 @@ public class InputHandler : MonoBehaviour
             }
             else
             {
+                // selectedPiece.MoveTo(new Vector2((int)piece.transform.position.x, (int)piece.transform.position.z) + Vector2.up * 0.04f, () => Debug.Log("A"));
                 // Move the piece if it can do it
             }
         }
