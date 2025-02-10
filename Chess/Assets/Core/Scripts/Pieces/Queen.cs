@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class Queen : MonoBehaviour
+public class Queen : Piece
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override bool IsValidMove(Vector2Int startPosition, Vector2Int targetPosition, Piece[,] board)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return false;
     }
 }
