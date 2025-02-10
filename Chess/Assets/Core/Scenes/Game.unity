@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46257058, y: -0.0039905407, z: 0.0020795576, w: 0.886571}
-  m_LocalPosition: {x: 0.12308692, y: 11.707673, z: -6.1434298}
+  m_LocalPosition: {x: 2.41, y: 11.707673, z: -6.1434298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -517,7 +517,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 9193174446308095473, guid: 48cea71dc41bf4dd3b4b7b90bb3bbaa4, type: 3}
   piecePrefabs:
+  - {fileID: 2040328767484672056, guid: 6a71c3657adfd4f08b8d576d5d7114ab, type: 3}
   - {fileID: 7692528899258643958, guid: 11750527a505143979ec5cb54643ab24, type: 3}
+  - {fileID: 2040328767484672056, guid: 96e3d2b01a70c47658868ddbcd08a87f, type: 3}
+  - {fileID: 2040328767484672056, guid: 6f33e9f62038340be985465d141a939c, type: 3}
+  - {fileID: 7692528899258643958, guid: 8e5afcee927fc4c2aae285c9c7da21b8, type: 3}
+  - {fileID: 7692528899258643958, guid: e7c373f69e2084b9c94dfaa7ba1533cf, type: 3}
+  - {fileID: 2040328767484672056, guid: 13275b84c86f04bd296ae9e54cd04605, type: 3}
+  - {fileID: 7692528899258643958, guid: b0bfbbf5324344d269100a127cb128a7, type: 3}
+  - {fileID: 7692528899258643958, guid: d0f102fd8ddf740aca7b7c3b91c3626d, type: 3}
+  - {fileID: 7692528899258643958, guid: 662b1ba4a77214e8b89abcb9f2187ada, type: 3}
+  - {fileID: 7692528899258643958, guid: dee26862eaa9f4d948113dc27bce7722, type: 3}
+  - {fileID: 7692528899258643958, guid: 31f00a41469124fc4bc047c47d486da8, type: 3}
 --- !u!1 &2039376676
 GameObject:
   m_ObjectHideFlags: 0
