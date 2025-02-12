@@ -5,7 +5,6 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Piece[] piecePrefabs;
 
-    private Cell[,] board = new Cell[8, 8];
     private Piece[,] pieces = new Piece[8, 8];
 
     public void GenerateBoard()

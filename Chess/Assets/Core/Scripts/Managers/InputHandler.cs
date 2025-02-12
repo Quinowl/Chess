@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    private Piece selectedPiece = null;
+    [SerializeField] private BoardManager boardManager;
+    private Vector2Int selectedCell = new Vector2Int(-1, -1);
     private Camera cam = null;
 
     private void Awake()
@@ -36,18 +37,29 @@ public class InputHandler : MonoBehaviour
 
     private void ProcessInput(Vector3 inputPosition)
     {
-        Ray ray = cam.ScreenPointToRay(inputPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.TryGetComponent(out Piece piece))
+        Vector2Int cell = GetClickPosition(inputPosition);
+        // If there is some piece on the board's cell...
+        if (boardManager.IsCellOccupied(cell))
         {
-            if (selectedPiece == null)
-            {
-                selectedPiece = piece;
-            }
-            else
-            {
-                // selectedPiece.MoveTo(new Vector2((int)piece.transform.position.x, (int)piece.transform.position.z) + Vector2.up * 0.04f, () => Debug.Log("A"));
-                // Move the piece if it can do it
-            }
+            // Select it
+            selectedCell = cell;
         }
+        // SelectedCell == (-1, -1) => there isnt anything selected
+        // so, if we have some cell selected and we select other...
+        else if (selectedCell != Vector2Int.one * -1)
+        {
+            // It moves the piece to new selected
+            boardManager.MovePiece(selectedCell, cell);
+            // Updates selectedCell to (-1,-1) => there isnt anything selected
+            selectedCell = Vector2Int.one * -1;
+        }
+    }
+
+    private Vector2Int GetClickPosition(Vector3 inputPosition)
+    {
+        Ray ray = cam.ScreenPointToRay(inputPosition);
+        if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.TryGetComponent(out Cell cell))
+            return cell.transform.position.ToVector2Int();
+        return Vector2Int.one * -1;
     }
 }
