@@ -11,7 +11,7 @@ public class Knight : Piece
     {
         foreach (var move in moves)
         {
-            Debug.Log(move);
+            // Base movement pattern
             if (targetPosition.x == startPosition.x + move.x && targetPosition.y == startPosition.y + move.y)
             {
                 return true;
