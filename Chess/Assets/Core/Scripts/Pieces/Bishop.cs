@@ -7,9 +7,7 @@ public class Bishop : Piece
         int deltaX = targetPosition.x - startPosition.x;
         int deltaY = targetPosition.y - startPosition.y;
         if (Mathf.Abs(deltaX) == Mathf.Abs(deltaY))
-        {
             return this.CheckDiagonalMove(startPosition, targetPosition, board);
-        }
 
         return false;
     }

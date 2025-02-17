@@ -13,9 +13,7 @@ public class Knight : Piece
         {
             // Base movement pattern
             if (targetPosition.x == startPosition.x + move.x && targetPosition.y == startPosition.y + move.y)
-            {
                 return true;
-            }
         }
         return false;
     }

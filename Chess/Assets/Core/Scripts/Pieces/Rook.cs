@@ -6,6 +6,7 @@ public class Rook : Piece
     {
         if (startPosition.x == targetPosition.x || startPosition.y == targetPosition.y)
             return this.CheckStraightMove(startPosition, targetPosition, board);
+
         return false;
     }
 }
