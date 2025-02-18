@@ -38,6 +38,8 @@ public class InputHandler : MonoBehaviour
     private void ProcessInput(Vector3 inputPosition)
     {
         Vector2Int cell = GetClickPosition(inputPosition);
+        boardManager.ClearMoveIndicators();
+
         // If there is some piece on the board's cell...
         if (boardManager.IsCellOccupied(cell))
         {

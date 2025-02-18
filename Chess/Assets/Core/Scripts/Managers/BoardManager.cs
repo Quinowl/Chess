@@ -35,7 +35,7 @@ public class BoardManager : MonoBehaviour
         Piece piece = pieces[startPosition.x, startPosition.y];
         if (piece.IsValidMove(startPosition, targetPosition, pieces))
         {
-            ClearIndicators();
+            ClearMoveIndicators();
 
             pieces[targetPosition.x, targetPosition.y] = piece;
             pieces[startPosition.x, startPosition.y] = null;
@@ -69,13 +69,13 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    private Piece GetPieceAt(Vector2Int position) => pieces[position.x, position.y];
-
-    private void ClearIndicators()
+    public void ClearMoveIndicators()
     {
         foreach (var indicator in activeIndicators) Destroy(indicator);
         activeIndicators.Clear();
     }
+
+    private Piece GetPieceAt(Vector2Int position) => pieces[position.x, position.y];
 
     private void PlacePieces()
     {
