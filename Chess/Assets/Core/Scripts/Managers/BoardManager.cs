@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -6,9 +7,11 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Piece[] piecePrefabs;
     [SerializeField] private float rotateBoardTime = 0.5f;
+    [SerializeField] private GameObject moveIndicatorPrefab;
 
     private Piece[,] pieces = new Piece[8, 8];
     private Coroutine rotateBoardCoroutine;
+    private List<GameObject> activeIndicators = new List<GameObject>();
 
     public void GenerateBoard()
     {
@@ -32,6 +35,8 @@ public class BoardManager : MonoBehaviour
         Piece piece = pieces[startPosition.x, startPosition.y];
         if (piece.IsValidMove(startPosition, targetPosition, pieces))
         {
+            ClearIndicators();
+
             pieces[targetPosition.x, targetPosition.y] = piece;
             pieces[startPosition.x, startPosition.y] = null;
 
@@ -45,6 +50,31 @@ public class BoardManager : MonoBehaviour
         if (rotateBoardCoroutine != null) StopCoroutine(rotateBoardCoroutine);
         rotateBoardCoroutine = StartCoroutine(RotateBoardCoroutine());
         transform.Rotate(0, 180, 0);
+    }
+
+    public void ShowAvailableMoves(Vector2Int pieceCoordinates)
+    {
+        Piece piece = GetPieceAt(pieceCoordinates);
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (piece.IsValidMove(pieceCoordinates, new Vector2Int(i, j), pieces))
+                {
+                    GameObject indicator = Instantiate(moveIndicatorPrefab, new Vector3(i, 0.2f, j), Quaternion.identity);
+                    activeIndicators.Add(indicator);
+                }
+            }
+        }
+    }
+
+    private Piece GetPieceAt(Vector2Int position) => pieces[position.x, position.y];
+
+    private void ClearIndicators()
+    {
+        foreach (var indicator in activeIndicators) Destroy(indicator);
+        activeIndicators.Clear();
     }
 
     private void PlacePieces()

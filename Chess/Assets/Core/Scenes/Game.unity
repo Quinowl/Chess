@@ -529,6 +529,8 @@ MonoBehaviour:
   - {fileID: 2040328767484672056, guid: 6a71c3657adfd4f08b8d576d5d7114ab, type: 3}
   - {fileID: 2549683437051104672, guid: 8e5afcee927fc4c2aae285c9c7da21b8, type: 3}
   - {fileID: 7692528899258643958, guid: 11750527a505143979ec5cb54643ab24, type: 3}
+  rotateBoardTime: 2
+  moveIndicatorPrefab: {fileID: 2239857032926441242, guid: 9ecc14b64d7724e3c899456becbbd700, type: 3}
 --- !u!1 &2039376676
 GameObject:
   m_ObjectHideFlags: 0

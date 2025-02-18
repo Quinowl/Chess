@@ -43,6 +43,8 @@ public class InputHandler : MonoBehaviour
         {
             // Select it
             selectedCell = cell;
+            // Show all piece available movements
+            boardManager.ShowAvailableMoves(cell);
         }
         // SelectedCell == (-1, -1) => there isnt anything selected
         // so, if we have some cell selected and we select other...
