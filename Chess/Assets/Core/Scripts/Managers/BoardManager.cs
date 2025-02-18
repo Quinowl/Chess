@@ -1,14 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Piece[] piecePrefabs;
+    [SerializeField] private float rotateBoardTime = 0.5f;
 
     private Piece[,] pieces = new Piece[8, 8];
+    private Coroutine rotateBoardCoroutine;
 
     public void GenerateBoard()
     {
+        transform.position = new Vector3(3.5f, 0f, 3.5f);
         for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
@@ -21,6 +25,27 @@ public class BoardManager : MonoBehaviour
     }
 
     public bool IsCellOccupied(Vector2Int position) => pieces[position.x, position.y] != null;
+
+    public void MovePiece(Vector2Int startPosition, Vector2Int targetPosition)
+    {
+        if (!pieces[startPosition.x, startPosition.y]) return;
+        Piece piece = pieces[startPosition.x, startPosition.y];
+        if (piece.IsValidMove(startPosition, targetPosition, pieces))
+        {
+            pieces[targetPosition.x, targetPosition.y] = piece;
+            pieces[startPosition.x, startPosition.y] = null;
+
+            piece.transform.position = new Vector3(targetPosition.x, 0f, targetPosition.y);
+        }
+    }
+
+    [ContextMenu("Rotate board")]
+    public void RotateBoard()
+    {
+        if (rotateBoardCoroutine != null) StopCoroutine(rotateBoardCoroutine);
+        rotateBoardCoroutine = StartCoroutine(RotateBoardCoroutine());
+        transform.Rotate(0, 180, 0);
+    }
 
     private void PlacePieces()
     {
@@ -85,16 +110,19 @@ public class BoardManager : MonoBehaviour
         PlacePiece(new Vector2Int(3, 7), EPieceType.Queen, EPieceColor.Black);
     }
 
-    public void MovePiece(Vector2Int startPosition, Vector2Int targetPosition)
+    private IEnumerator RotateBoardCoroutine()
     {
-        if (!pieces[startPosition.x, startPosition.y]) return;
-        Piece piece = pieces[startPosition.x, startPosition.y];
-        if (piece.IsValidMove(startPosition, targetPosition, pieces))
-        {
-            pieces[targetPosition.x, targetPosition.y] = piece;
-            pieces[startPosition.x, startPosition.y] = null;
+        float timeElapsed = 0f;
+        Quaternion startRotation = transform.rotation;
+        Quaternion targetRotation = startRotation * Quaternion.Euler(0, 180, 0);
 
-            piece.transform.position = new Vector3(targetPosition.x, 0f, targetPosition.y);
+        while (timeElapsed < rotateBoardTime)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, timeElapsed / rotateBoardTime);
+            timeElapsed += Time.deltaTime;
+            yield return null;
         }
+
+        transform.rotation = targetRotation;
     }
 }
