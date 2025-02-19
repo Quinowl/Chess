@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -5,6 +6,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private BoardManager boardManager;
     private Vector2Int selectedCell = new Vector2Int(-1, -1);
     private Camera cam = null;
+
+    public Action<Vector2Int, Vector2Int> OnMoveAttempted;
 
     private void Awake()
     {
@@ -52,8 +55,8 @@ public class InputHandler : MonoBehaviour
         // so, if we have some cell selected and we select other...
         else if (selectedCell != Vector2Int.one * -1)
         {
-            // It moves the piece to new selected
-            boardManager.MovePiece(selectedCell, cell);
+            // End of the turn
+            OnMoveAttempted?.Invoke(selectedCell, cell);
             // Updates selectedCell to (-1,-1) => there isnt anything selected
             selectedCell = Vector2Int.one * -1;
         }

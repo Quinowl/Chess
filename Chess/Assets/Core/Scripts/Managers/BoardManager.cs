@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject moveIndicatorPrefab;
 
     private Piece[,] pieces = new Piece[8, 8];
+    public Piece[,] Pieces => pieces;
     private Coroutine rotateBoardCoroutine;
     private List<GameObject> activeIndicators = new List<GameObject>();
 
@@ -31,8 +32,8 @@ public class BoardManager : MonoBehaviour
 
     public void MovePiece(Vector2Int startPosition, Vector2Int targetPosition)
     {
-        if (!pieces[startPosition.x, startPosition.y]) return;
-        Piece piece = pieces[startPosition.x, startPosition.y];
+        Piece piece = GetPieceAt(startPosition);
+        if (!piece) return;
         if (piece.IsValidMove(startPosition, targetPosition, pieces))
         {
             ClearMoveIndicators();
@@ -75,7 +76,7 @@ public class BoardManager : MonoBehaviour
         activeIndicators.Clear();
     }
 
-    private Piece GetPieceAt(Vector2Int position) => pieces[position.x, position.y];
+    public Piece GetPieceAt(Vector2Int position) => pieces[position.x, position.y];
 
     private void PlacePieces()
     {
